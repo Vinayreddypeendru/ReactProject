@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Harry from './arraydel';
+import Final from './useefectfetch';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Harry />);
+root.render(<Final/>);
