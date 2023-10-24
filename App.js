@@ -1,37 +1,66 @@
-import React from "react";
-
- function 
-
-function App () {
- const members = [{firstName:"vinay" , lastName:"redd" , surName:"pendru",  },
-{firstName:"vijay", lastName:"rao" , surName:"gandra"},] ;
-  
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+const App = ()=> {
+  let dispach=useDispatch();
+  const [amount, setAmount] = useState("");
+  const [fullname,setfullname] = useState("");
+  const [phonenumber,setPhonenumber]= useState("");
+ 
  
 
- return (
-  <div>
-    <ul>
-      {members.map((eachItem, index) => {
-        const { firstName, lastName, surName,  } = eachItem;
-        return (
-          <li key={index}>
-            <div>
-              my firstName <strong>{firstName}</strong>
-            </div>
-            <div>
-              my lastName <strong> {lastName}</strong>
-            </div>
-            <div>
-              my surName <strong>{surName}</strong>
-            </div>
 
-          </li>
-        );
-      })}
-    </ul>
-  </div>
-);
-};
+  const handleDeposit = () => {
+    
+   
+    if (!isNaN(amount) && typeof amount === 'number') {
+          dispach({type:"deposit",payload:amount}) 
+          setAmount("");    
+     
+    
+    } else {
+      alert('Please enter a valid number for deposit.');
+    }
+  };
 
+  const handleWithdraw = () => {
+   
+    if (!isNaN(amount) && typeof amount === 'number') {
+      
+     dispach({type:"withdraw",payload:amount})
+    setAmount("");
+    } else {
+      alert('Please enter a valid number for withdrawal.');
+    }
+  };
+  const handlesubmit = () =>{
+    dispach({type:"fullnameupdate",payload:fullname})
+  }
+const updatenumber =()=>{
+  dispach({type:"numberupdate" , payload:phonenumber})
+}
 
-//export default App;
+  return (
+    <div className="App">
+      <div>
+        <h4>enter amount</h4>
+        <input
+          type="number"
+          placeholder="enter amount here"
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
+        />
+        <button onClick={handleDeposit}  type='submit'>Deposit</button>
+        <button onClick={handleWithdraw} type='submit'>Withdraw</button>
+      </div>
+     <div>
+      <input  type='text' value={fullname} onChange={(e)=>setfullname(e.target.value)} />
+      <button onClick={handlesubmit} type='submit'> Updatename</button>
+     </div>
+     <input type='tel'  value={phonenumber} onChange={(e)=>setPhonenumber(e.target.value)} pattern='[0-9]{10}' />
+     <button  onClick={updatenumber} type='submit'>updatenumber</button>
+    </div>
+  );
+}
+
+export default App;
+
